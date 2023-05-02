@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  mysql_db:
+    container_name: mysql_custom
+    image: mysql:8
+    networks:
+      - db-bridge
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'superPass' # Password for root access
+      MYSQL_DATABASE: 'db' #Database name
+      MYSQL_USER: 'user' # So you don't have to use root
+      MYSQL_PASSWORD: 'passUser'      
+
+    # <Port exposed>:<MySQL Port running inside container>
+    ports:       
+      - '3306:3306'
+  
+  myAdmin:
+    container_name: php_my_admin
+    image: phpmyadmin:5.2.1
+    networks:
+      - db-bridge
+    links:
+      - mysql_db
+    environment:
+      PMA_HOST: 'mysql_db'
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - 8081:80
+    depends_on:
+      - mysql_db
+
+#To use volumes instead folder inside the project root
+volumes:
+  mysql-data:
+ 
+networks:
+  db-bridge:
+    driver: bridge
