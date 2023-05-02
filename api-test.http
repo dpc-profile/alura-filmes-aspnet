@@ -15,8 +15,8 @@ POST https://localhost:7298/filme
 Content-Type: application/json
 
 {
-    "Titulo": "O Melhor Filme Já Feito",
-    "Genero": "Drama",
-    "Duracao": 180
+    "Titulo": "O senhor do seu anél",
+    "Genero": "Fantasia",
+    "Duracao": 360
 }
 

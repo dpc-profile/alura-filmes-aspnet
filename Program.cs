@@ -12,9 +12,12 @@ builder.Services.AddDbContext<FilmeContext>(options =>
         connectionString, 
         ServerVersion.AutoDetect(connectionString)));
 
-// Add services to the container.
+//Adiciona o AutoMapper na build para ser usada
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// Add services to the container.
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

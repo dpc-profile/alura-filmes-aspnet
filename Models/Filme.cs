@@ -8,15 +8,15 @@ public class Filme
     [Required]
     public int Id { get; set; }
 
-    [Required(ErrorMessage = "O título do filme é obrigatório.")]
-    [MaxLength(50, ErrorMessage = "O título do filme não pode exceder 50 caracteres")]
+    [Required]
+    [StringLength(50)]
     public string Titulo { get; set; }
 
-    [Required(ErrorMessage = "O gênero do filme é obrigatório.")]
+    [Required]
     public string Genero { get; set; }
 
-    [Required(ErrorMessage = "A duração do filme é obrigatória.")]
-    [Range(1, 360, ErrorMessage = "A duração deve ter no mínimo 1 minuto e no máximo 360")]
+    [Required]
+    [Range(1, 360)]
     public int Duracao { get; set; }
     
 }
