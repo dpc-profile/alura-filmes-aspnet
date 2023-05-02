@@ -13,5 +13,7 @@ public class FilmeProfile : Profile
         CreateMap<CreateFilmeDto, Filme>(); // Usado pelo create
         CreateMap<UpdateFilmeDto, Filme>(); // Tmb usado pelo patch, e pelo PUT(que não existe)
         CreateMap<Filme, UpdateFilmeDto>(); // Usado pelo patch
+        CreateMap<Filme, ReadFilmeDto>(); // Usado pelos gets
+
     }
 }

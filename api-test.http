@@ -8,26 +8,29 @@ GET https://localhost:7298/filme
 
 #Get pegando id 1
 ###
-GET https://localhost:7298/filme/1
+GET https://localhost:7298/filme/8
 
 ###
 POST https://localhost:7298/filme
 Content-Type: application/json
 
 {
-    "Titulo": "Hobito ",
-    "Genero": "Fantasia",
+    "Titulo": "Avataz",
+    "Genero": "Ação",
     "Duracao": 150
 }
 
 ###
-PATCH  https://localhost:7298/filme/4
+PATCH  https://localhost:7298/filme/8
 Content-Type: application/json
 
 [
     {
         "op": "replace",
         "path": "/titulo",
-        "value": "O senhor dos anéis"
+        "value": "Avatar"
     }
 ]
+
+###
+DELETE https://localhost:7298/filme/8

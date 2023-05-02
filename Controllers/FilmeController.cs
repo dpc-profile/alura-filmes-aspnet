@@ -39,9 +39,9 @@ public class FilmeController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Filme> ListarFilmes([FromQuery] int skip = 0, [FromQuery] int take = 20)
+    public IEnumerable<ReadFilmeDto> ListarFilmes([FromQuery] int skip = 0, [FromQuery] int take = 20)
     {
-        return _context.Filmes.Skip(skip).Take(take);
+        return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take));
     }
 
     [HttpGet("{id}")]
@@ -52,7 +52,9 @@ public class FilmeController : ControllerBase
 
         if (filmeEncontrado == null) return NotFound();
 
-        return Ok(filmeEncontrado);
+        var filmeDto = _mapper.Map<ReadFilmeDto>(filmeEncontrado);
+
+        return Ok(filmeDto);
     }
 
     [HttpPatch("{id}")]
@@ -74,6 +76,20 @@ public class FilmeController : ControllerBase
 
         // Grava as informações
         _mapper.Map(filmeParaAtualiza, filmeEncontrado);
+        _context.SaveChanges();
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeletarFilme(int id)
+    {
+        // Retorna o filme, e se não achar retorna null
+        var filmeEncontrado = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
+
+        if (filmeEncontrado == null) return NotFound();
+
+        _context.Remove(filmeEncontrado);
         _context.SaveChanges();
 
         return NoContent();
