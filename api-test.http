@@ -15,8 +15,19 @@ POST https://localhost:7298/filme
 Content-Type: application/json
 
 {
-    "Titulo": "O senhor do seu anél ",
+    "Titulo": "Hobito ",
     "Genero": "Fantasia",
-    "Duracao": 360
+    "Duracao": 150
 }
 
+###
+PATCH  https://localhost:7298/filme/4
+Content-Type: application/json
+
+[
+    {
+        "op": "replace",
+        "path": "/titulo",
+        "value": "O senhor dos anéis"
+    }
+]

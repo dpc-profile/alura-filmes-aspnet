@@ -16,7 +16,8 @@ builder.Services.AddDbContext<FilmeContext>(options =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
-builder.Services.AddControllers();
+// Adicionado manualmente AddNewtonsoftJson para mexer com json em AtualizaFilmeParcial
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

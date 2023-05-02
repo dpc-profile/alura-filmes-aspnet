@@ -2,6 +2,7 @@ using AutoMapper;
 using FilmesApi.Data;
 using FilmesApi.Data.Dtos;
 using FilmesApi.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesApi.Controllers;
@@ -26,6 +27,7 @@ public class FilmeController : ControllerBase
         // Converte o filmeDTo para Filme
         Filme filme = _mapper.Map<Filme>(filmeDto);
 
+        // Grava as informações
         _context.Filmes.Add(filme);
         _context.SaveChanges();
 
@@ -37,7 +39,7 @@ public class FilmeController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Filme> ListarFilmes([FromQuery] int skip = 0,[FromQuery] int take = 20)
+    public IEnumerable<Filme> ListarFilmes([FromQuery] int skip = 0, [FromQuery] int take = 20)
     {
         return _context.Filmes.Skip(skip).Take(take);
     }
@@ -51,5 +53,29 @@ public class FilmeController : ControllerBase
         if (filmeEncontrado == null) return NotFound();
 
         return Ok(filmeEncontrado);
+    }
+
+    [HttpPatch("{id}")]
+    public IActionResult AtualizaFilmeParcial(int id, JsonPatchDocument<UpdateFilmeDto> patch)
+    {
+        // Retorna o filme, e se não achar retorna null
+        var filmeEncontrado = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
+
+        if (filmeEncontrado == null) return NotFound();
+
+        // Converte 
+        var filmeParaAtualiza = _mapper.Map<UpdateFilmeDto>(filmeEncontrado);
+
+        // Ver o modelState
+        // Verifica se o filmeParaAtualiza é valido
+        patch.ApplyTo(filmeParaAtualiza, ModelState);
+
+        if (!TryValidateModel(filmeParaAtualiza)) return ValidationProblem(ModelState);
+
+        // Grava as informações
+        _mapper.Map(filmeParaAtualiza, filmeEncontrado);
+        _context.SaveChanges();
+
+        return NoContent();
     }
 }
