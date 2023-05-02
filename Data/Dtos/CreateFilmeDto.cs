@@ -5,7 +5,7 @@ namespace FilmesApi.Data.Dtos;
 public class CreateFilmeDto
 {
     [Required(ErrorMessage = "O título do filme é obrigatório.")]
-    [MaxLength(50, ErrorMessage = "O título do filme não pode exceder 50 caracteres")]
+    [StringLength(50, ErrorMessage = "O título do filme não pode exceder 50 caracteres")]
     public string Titulo { get; set; }
 
     [Required(ErrorMessage = "O gênero do filme é obrigatório.")]

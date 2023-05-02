@@ -12,7 +12,7 @@ builder.Services.AddDbContext<FilmeContext>(options =>
         connectionString, 
         ServerVersion.AutoDetect(connectionString)));
 
-//Adiciona o AutoMapper na build para ser usada
+// Adiciona o AutoMapper na build para ser usado pelo FilmeContext e outros
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.

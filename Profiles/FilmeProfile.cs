@@ -4,8 +4,8 @@ using FilmesApi.Models;
 
 namespace FilmesApi.Profiles;
 
-//É o que torna possivel a conversão da classe Filme
-//para um DTO de forma automatica
+//É o que torna possivel fazer o map da classe
+// CreateFilmeDto para Filme na func AdicionaFilme 
 public class FilmeProfile : Profile
 {
     public FilmeProfile()

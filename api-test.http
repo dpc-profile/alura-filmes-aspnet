@@ -15,7 +15,7 @@ POST https://localhost:7298/filme
 Content-Type: application/json
 
 {
-    "Titulo": "O senhor do seu anél",
+    "Titulo": "O senhor do seu anél ",
     "Genero": "Fantasia",
     "Duracao": 360
 }

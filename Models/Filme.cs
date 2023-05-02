@@ -4,6 +4,7 @@ namespace FilmesApi.Models;
 
 public class Filme
 {
+    //O migration usa essa classe como base para criar as tabela
     [Key]
     [Required]
     public int Id { get; set; }
