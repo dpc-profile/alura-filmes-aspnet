@@ -15,15 +15,14 @@ public class FilmeController : ControllerBase
     {
         filme.Id = id++;
         filmes.Add(filme);
-        return CreatedAtAction(
-                nameof(ListarFilmePorId),
-                new { id = filme.Id},
-                filme);
+        return CreatedAtAction(nameof(ListarFilmePorId),
+                               new { id = filme.Id },
+                               filme);
     }
 
     [HttpGet]
     public IEnumerable<Filme> ListarFilmes(
-        [FromQuery] int skip = 0, 
+        [FromQuery] int skip = 0,
         [FromQuery] int take = 20)
     {
         return filmes.Skip(skip).Take(take);
