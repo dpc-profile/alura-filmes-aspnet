@@ -1,3 +1,7 @@
+###
+GET https://localhost:7298/swagger
+
+
 #Get pulando 2 e pegando 10 itens
 ###
 GET https://localhost:7298/filme?skip=5&take=10
@@ -8,7 +12,7 @@ GET https://localhost:7298/filme
 
 #Get pegando id 1
 ###
-GET https://localhost:7298/filme/8
+GET https://localhost:7298/filme/3
 
 ###
 POST https://localhost:7298/filme

@@ -20,8 +20,14 @@ public class FilmeController : ControllerBase
         _mapper = mapper;
     }
 
-    // func de retorno IActionResult por ser mais abrangente e generico
+    /// <summary>
+    /// Adiciona um filme ao banco de dados
+    /// </summary>
+    /// <param name="filmeDto">Objeto com os campos necessários para criação de um filme</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="201">Caso inserção seja feita com sucesso</response>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
     {
         // Converte o filmeDTo para Filme
@@ -38,13 +44,28 @@ public class FilmeController : ControllerBase
                                filme);
     }
 
+    /// <summary>
+    /// Retorna os primeiros 20 filmes de acordo com o intervalo
+    /// </summary>
+    /// <param name="skip">Qual o começo do intervalo</param>
+    /// <param name="take">Quantos filmes serão retornados</param>
+    /// <returns>IEnumerable</returns>
+    /// <response code="200">Caso a consulta seja feita com sucesso</response>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public IEnumerable<ReadFilmeDto> ListarFilmes([FromQuery] int skip = 0, [FromQuery] int take = 20)
     {
         return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take));
     }
 
+    /// <summary>
+    /// Retorna as informações do filme referente ao ID
+    /// </summary>
+    /// <param name="id">ID do filmes gerado na criação</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a consulta seja feita com sucesso</response>
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult ListarFilmePorId(int id)
     {
         // Retorna o filme, e se não achar retorna null
@@ -57,7 +78,15 @@ public class FilmeController : ControllerBase
         return Ok(filmeDto);
     }
 
+    /// <summary>
+    /// Atualiza uma ou mais informações do filme
+    /// </summary>
+    /// <param name="id">ID do filmes gerado na criação</param>
+    /// <param name="patch"></param>
+    /// <returns>IActionResult</returns>
+    /// <response code="204">Caso a atualização seja feita com sucesso</response>
     [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public IActionResult AtualizaFilmeParcial(int id, JsonPatchDocument<UpdateFilmeDto> patch)
     {
         // Retorna o filme, e se não achar retorna null
@@ -81,7 +110,14 @@ public class FilmeController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Deleta um filme
+    /// </summary>
+    /// <param name="id">ID do filmes gerado na criação</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="204">Caso a remoção seja feita com sucesso</response>
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public IActionResult DeletarFilme(int id)
     {
         // Retorna o filme, e se não achar retorna null
