@@ -2,7 +2,7 @@
 GET https://localhost:7298/swagger
 
 
-#Get pulando 2 e pegando 10 itens
+#Get pulando 5 e pegando 10 itens
 ###
 GET https://localhost:7298/filme?skip=5&take=10
 
@@ -10,7 +10,7 @@ GET https://localhost:7298/filme?skip=5&take=10
 ###
 GET https://localhost:7298/filme
 
-#Get pegando id 1
+#Get pegando id 3
 ###
 GET https://localhost:7298/filme/3
 
@@ -24,8 +24,9 @@ Content-Type: application/json
     "Duracao": 150
 }
 
+#Atualiza nome do filme, do ID 8
 ###
-PATCH  https://localhost:7298/filme/8
+PATCH https://localhost:7298/filme/8
 Content-Type: application/json
 
 [
